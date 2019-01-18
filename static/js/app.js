@@ -1,6 +1,7 @@
 var onTheWall = 99;
 var takenDown = 0;
 var passedAround = 0;
+var onGround = 0;
 
 var config = {
   type: 'scatter',
@@ -75,70 +76,12 @@ Chart.scaleService.updateScaleDefaults('linear', {
     }
 });
 
-document.getElementById('randomizeData').addEventListener('click', function() {
-  config.data.datasets.forEach(function(dataset) {
-    dataset.data = dataset.data.map(function() {
-      return randomScalingFactor();
-    });
-
-  });
-
-  chart.update();
-});
-
 var colorNames = Object.keys(window.chartColors);
-document.getElementById('addDataset').addEventListener('click', function() {
-  var colorName = colorNames[config.data.datasets.length % colorNames.length];
-  var newColor = window.chartColors[colorName];
-  var newDataset = {
-    label: 'Dataset ' + config.data.datasets.length,
-    backgroundColor: newColor,
-    borderColor: newColor,
-    data: [],
-    fill: false
-  };
-
-  for (var index = 0; index < config.data.labels.length; ++index) {
-    newDataset.data.push(randomScalingFactor());
-  }
-
-  config.data.datasets.push(newDataset);
-  chart.update();
-});
-
-document.getElementById('addData').addEventListener('click', function() {
-  if (config.data.datasets.length > 0) {
-    var month = MONTHS[config.data.labels.length % MONTHS.length];
-    config.data.labels.push(month);
-
-    config.data.datasets.forEach(function(dataset) {
-      dataset.data.push(randomScalingFactor());
-    });
-
-    chart.update();
-  }
-});
-
-document.getElementById('removeDataset').addEventListener('click', function() {
-  config.data.datasets.splice(0, 1);
-  chart.update();
-});
-
-document.getElementById('removeData').addEventListener('click', function() {
-  config.data.labels.splice(-1, 1); // remove the label first
-
-  config.data.datasets.forEach(function(dataset) {
-    dataset.data.pop();
-  });
-
-  chart.update();
-});
 
 document.getElementById('takeDown').addEventListener('click', function() {
   onTheWall--;
   takenDown++;
-
-  config.data.labels.push(takenDown);
+  onGround++;
 
   config.data.datasets[0].data.push({
     x: takenDown,
@@ -150,4 +93,15 @@ document.getElementById('takeDown').addEventListener('click', function() {
   });
 
   chart.update();
+});
+
+document.getElementById('passAround').addEventListener('click', function() {
+  if (onGround > 0) {
+    passedAround++;
+    onGround--;
+
+    config.data.datasets[1].data[takenDown].y++;
+
+    chart.update();
+  };
 });
