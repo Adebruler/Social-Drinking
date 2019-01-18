@@ -69,7 +69,7 @@ var config = {
 
 var ctx = document.getElementById('canvas');
 
-var chart = new Chart(ctx, Config);
+var chart = new Chart(ctx, config);
 
 document.getElementById('randomizeData').addEventListener('click', function() {
   config.data.datasets.forEach(function(dataset) {
@@ -79,7 +79,7 @@ document.getElementById('randomizeData').addEventListener('click', function() {
 
   });
 
-  window.myLine.update();
+  chart.update();
 });
 
 var colorNames = Object.keys(window.chartColors);
@@ -99,7 +99,7 @@ document.getElementById('addDataset').addEventListener('click', function() {
   }
 
   config.data.datasets.push(newDataset);
-  window.myLine.update();
+  chart.update();
 });
 
 document.getElementById('addData').addEventListener('click', function() {
@@ -111,13 +111,13 @@ document.getElementById('addData').addEventListener('click', function() {
       dataset.data.push(randomScalingFactor());
     });
 
-    window.myLine.update();
+    chart.update();
   }
 });
 
 document.getElementById('removeDataset').addEventListener('click', function() {
   config.data.datasets.splice(0, 1);
-  window.myLine.update();
+  chart.update();
 });
 
 document.getElementById('removeData').addEventListener('click', function() {
@@ -127,5 +127,5 @@ document.getElementById('removeData').addEventListener('click', function() {
     dataset.data.pop();
   });
 
-  window.myLine.update();
+  chart.update();
 });
