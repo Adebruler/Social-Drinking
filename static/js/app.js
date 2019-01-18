@@ -1,43 +1,38 @@
-var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+var onTheWall = 99;
+var takenDown = 0;
+var passedAround = 0;
+
 var config = {
-  type: 'line',
+  type: 'scatter',
   data: {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: [takenDown],
     datasets: [{
-      label: 'My First dataset',
+      label: 'On the Wall',
       backgroundColor: window.chartColors.red,
       borderColor: window.chartColors.red,
-      data: [
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor()
-      ],
+      data: [{
+        x: takenDown,
+        y: onTheWall
+      }],
       fill: false,
+      showLine: true
     }, {
-      label: 'My Second dataset',
-      fill: false,
+      label: 'Passed around',
       backgroundColor: window.chartColors.blue,
       borderColor: window.chartColors.blue,
-      data: [
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor()
-      ],
+      data: [{
+        x: takenDown,
+        y: passedAround
+      }],
+      fill: false,
+      showLine: true
     }]
   },
   options: {
     responsive: true,
     title: {
       display: true,
-      text: 'Chart.js Line Chart'
+      text: 'Distributions of Beer'
     },
     tooltips: {
       mode: 'index',
@@ -52,14 +47,17 @@ var config = {
         display: true,
         scaleLabel: {
           display: true,
-          labelString: 'Month'
+          labelString: 'Bottles Taken Down'
         }
       }],
       yAxes: [{
         display: true,
         scaleLabel: {
           display: true,
-          labelString: 'Value'
+          labelString: 'Bottles of Beer'
+        },
+        ticks: {
+          beginAtZero: true
         }
       }]
     }
@@ -70,6 +68,12 @@ var config = {
 var ctx = document.getElementById('canvas');
 
 var chart = new Chart(ctx, config);
+
+Chart.scaleService.updateScaleDefaults('linear', {
+    ticks: {
+        min: 0
+    }
+});
 
 document.getElementById('randomizeData').addEventListener('click', function() {
   config.data.datasets.forEach(function(dataset) {
@@ -125,6 +129,24 @@ document.getElementById('removeData').addEventListener('click', function() {
 
   config.data.datasets.forEach(function(dataset) {
     dataset.data.pop();
+  });
+
+  chart.update();
+});
+
+document.getElementById('takeDown').addEventListener('click', function() {
+  onTheWall--;
+  takenDown++;
+
+  config.data.labels.push(takenDown);
+
+  config.data.datasets[0].data.push({
+    x: takenDown,
+    y: onTheWall
+  });
+  config.data.datasets[1].data.push({
+    x: takenDown,
+    y: passedAround
   });
 
   chart.update();
