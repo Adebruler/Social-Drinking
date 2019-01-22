@@ -110,7 +110,7 @@ document.getElementById('takeDown').addEventListener('click', function() {
     });
 
     title.text(`${onTheWall} Bottles of Beer!`)
-    navbarBrand.text(`${onTheWall} Bottles of Beer on the Wall!`)
+    navbarBrand.text(`${onTheWall} Bottles on the Wall!`)
 
     document.getElementById('passAround').disabled = false;
 
