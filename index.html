@@ -27,7 +27,7 @@
 	<header>
 		<!-- Fixed navbar -->
 		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-			<a class="navbar-brand" href="#">Fixed navbar</a>
+			<a id="navbar-brand" class="navbar-brand" href="#">99 Bottles of Beer on the Wall!</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -50,20 +50,22 @@
 			</div>
 		</nav>
 	</header>
-	<h1 id="countHeader">99 Bottles of Beer on the Wall!</h1>
+	<!-- <h1 id="countHeader">99 Bottles of Beer on the Wall!</h1> -->
 	<div class="container container-main">
 		<!-- <div style="width:75%;" class="container-canvas"> -->
 		<div class="container-canvas table-responsive">
 			<canvas id="canvas" style="height:400px" class="table"></canvas>
 		</div>
 	</div>
-	<br>
-	<br>
 
 	<footer class="footer">
-		<div class="container text-center">
-			<button type="button" class="btn btn-lg btn-primary" id="takeDown">Take One Down!</button>
-			<button type="button" class="btn btn-lg btn-primary" id="passAround" disabled>Pass it Around!</button>
+		<div class="row">
+			<div class="col-xs-4 mx-auto">
+				<div class="container text-center">
+					<button type="button" class="btn btn-lg btn-primary" id="takeDown">Take One Down!</button>
+					<button type="button" class="btn btn-lg btn-primary" id="passAround" disabled>Pass it Around!</button>
+				</div>
+			</div>
 		</div>
 	</footer>
 

@@ -6,6 +6,7 @@ var onGround = 0;
 
 var title = d3.select('title')
 var countHeader = d3.select('#countHeader')
+var navbarBrand = d3.select('#navbar-brand')
 
 
 // Configure the line chart
@@ -109,7 +110,7 @@ document.getElementById('takeDown').addEventListener('click', function() {
     });
 
     title.text(`${onTheWall} Bottles of Beer!`)
-    countHeader.text(`${onTheWall} Bottles of Beer on the Wall!`)
+    navbarBrand.text(`${onTheWall} Bottles of Beer on the Wall!`)
 
     document.getElementById('passAround').disabled = false;
 
