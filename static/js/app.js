@@ -1,8 +1,14 @@
+// Declare the states of the bottles
 var onTheWall = 99;
 var takenDown = 0;
 var passedAround = 0;
 var onGround = 0;
 
+var title = d3.select('title')
+var countHeader = d3.select('#countHeader')
+
+
+// Configure the line chart
 var config = {
   type: 'scatter',
   data: {
@@ -38,6 +44,14 @@ var config = {
     tooltips: {
       mode: 'index',
       intersect: false,
+      callbacks: {
+        title: function(tooltipItems, data) {
+                        return tooltipItems[0].xLabel + " Bottles Taken Down!";
+                    },
+        label: function(tooltipItems, data) {
+                        return tooltipItems.yLabel + " Bottles";
+                    }
+      }
     },
     hover: {
       mode: 'nearest',
@@ -79,20 +93,30 @@ Chart.scaleService.updateScaleDefaults('linear', {
 var colorNames = Object.keys(window.chartColors);
 
 document.getElementById('takeDown').addEventListener('click', function() {
-  onTheWall--;
-  takenDown++;
-  onGround++;
+  if (onTheWall > 0) {
+    onTheWall--;
+    takenDown++;
+    onGround++;
 
-  config.data.datasets[0].data.push({
-    x: takenDown,
-    y: onTheWall
-  });
-  config.data.datasets[1].data.push({
-    x: takenDown,
-    y: passedAround
-  });
+    config.data.datasets[0].data.push({
+      x: takenDown,
+      y: onTheWall
+    });
+    config.data.datasets[1].data.push({
+      x: takenDown,
+      y: passedAround
+    });
 
-  chart.update();
+    title.text(`${onTheWall} Bottles of Beer!`)
+    countHeader.text(`${onTheWall} Bottles of Beer on the Wall!`)
+
+    document.getElementById('passAround').disabled = false;
+
+    chart.update();
+    if (onTheWall == 0){
+      document.getElementById('takeDown').disabled = false;
+    }
+  }
 });
 
 document.getElementById('passAround').addEventListener('click', function() {
@@ -103,5 +127,8 @@ document.getElementById('passAround').addEventListener('click', function() {
     config.data.datasets[1].data[takenDown].y++;
 
     chart.update();
+    if (onGround == 0){
+      document.getElementById('passAround').disabled = true;
+    }
   };
 });
