@@ -36,7 +36,8 @@ var config = {
     }]
   },
   options: {
-    responsive: true,
+    responsive: false,
+    maintainAspectRatio: false,
     title: {
       display: true,
       text: 'Distributions of Beer'
