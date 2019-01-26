@@ -37,7 +37,7 @@
 						<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Link</a>
+						<a class="nav-link" href="#line-chart">Beer Over Time</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link disabled" href="#">Disabled</a>
@@ -51,12 +51,14 @@
 		</nav>
 	</header>
 	<!-- <h1 id="countHeader">99 Bottles of Beer on the Wall!</h1> -->
-	<div class="container container-main">
-		<!-- <div style="width:75%;" class="container-canvas"> -->
-		<div class="container-canvas table-responsive">
-			<canvas id="canvas" style="height:400px" class="table"></canvas>
+	<section id="line-chart">
+		<div class="container container-main">
+			<!-- <div style="width:75%;" class="container-canvas"> -->
+			<div class="container-canvas table-responsive">
+				<canvas id="canvas" style="height:400px" class="table"></canvas>
+			</div>
 		</div>
-	</div>
+	</section>
 
 	<footer class="footer">
 		<div class="row">
@@ -69,6 +71,10 @@
 		</div>
 	</footer>
 
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 	<script src="static/js/app.js"></script>
 </body>
 

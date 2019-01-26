@@ -41,7 +41,8 @@ var config = {
     maintainAspectRatio: false,
     title: {
       display: true,
-      text: 'Distributions of Beer'
+      text: 'Distributions of Beer',
+      fontSize: 20
     },
     tooltips: {
       mode: 'index',
@@ -65,6 +66,9 @@ var config = {
         scaleLabel: {
           display: true,
           labelString: 'Bottles Taken Down'
+        },
+        ticks: {
+          beginAtZero: true
         }
       }],
       yAxes: [{
@@ -72,9 +76,6 @@ var config = {
         scaleLabel: {
           display: true,
           labelString: 'Bottles of Beer'
-        },
-        ticks: {
-          beginAtZero: true
         }
       }]
     }
