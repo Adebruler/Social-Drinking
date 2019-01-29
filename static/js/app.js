@@ -130,7 +130,25 @@ function writeTable(){
   });
 }
 
+function addGuest(){
+  // Prevent the page from refreshing
+  // d3.event.preventDefault();
 
+  // Check if input is blank. If not, add guest
+  var guest = d3.select("#guest").property("value");
+  if (guest != ""){
+    drinkers++;
+    currGuest = {"id":drinkers,
+      "guest":guest,
+      "drinks":0
+    };
+    party.push(currGuest);
+
+    writeTable();
+
+    document.getElementById('guest').value = "";
+  }
+}
 
 // Event listener for "Take one down"
 document.getElementById('takeDown').addEventListener('click', function() {
@@ -182,20 +200,7 @@ document.getElementById('passAround').addEventListener('click', function() {
   };
 });
 
-// Event listener for adding new guest
+// Event listener for adding new guest button
 document.getElementById('newGuest').addEventListener('click', function() {
-  // Check if input is blank. If not, add guest
-  var guest = d3.select("#guest").property("value");
-  if (guest != ""){
-    drinkers++;
-    currGuest = {"id":drinkers,
-      "guest":guest,
-      "drinks":0
-    };
-    party.push(currGuest);
-
-    writeTable();
-
-    document.getElementById('guest').value = "";
-  }
+  addGuest();
 });
