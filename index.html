@@ -51,14 +51,42 @@
 		</nav>
 	</header>
 	<!-- <h1 id="countHeader">99 Bottles of Beer on the Wall!</h1> -->
-	<section id="line-chart">
 		<div class="container container-main">
-			<!-- <div style="width:75%;" class="container-canvas"> -->
-			<div class="container-canvas table-responsive">
-				<canvas id="canvas" style="height:400px" class="table"></canvas>
+			<div class="row">
+				<!-- <section id="line-chart"> -->
+	        <div class="col-lg-8 mx-auto">
+						<!-- <div style="width:75%;" class="container-canvas"> -->
+						<div class="container-canvas table-responsive">
+							<canvas id="canvas" style="height:400px" class="table"></canvas>
+						</div>
+					</div>
+				<!-- </section> -->
+					<!-- <section id="drinker-table"> -->
+		        <div class="col-lg-4 mx-auto">
+							<table class="table table-striped">
+							  <thead>
+							    <tr>
+							      <th scope="col">#</th>
+							      <th scope="col">Drinker</th>
+							      <th scope="col">Drinks</th>
+							    </tr>
+							  </thead>
+							  <tbody id="party-table">
+							    <tr>
+							      <th scope="row">1</th>
+							      <td>Host</td>
+							      <td>0</td>
+							    </tr>
+								</tbody>
+							</table>
+							<form class="form-inline mt-2 mt-md-0">
+								<input class="form-control mr-sm-2" type="text" placeholder="New Guest" aria-label="Search" id="guest">
+								<button class="btn btn-outline-primary my-2 my-sm-0" type="button" id="newGuest">Join</button>
+							</form>
+						</div>
+					<!-- </section> -->
 			</div>
 		</div>
-	</section>
 
 	<footer class="footer">
 		<div class="row">

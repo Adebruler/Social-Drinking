@@ -4,6 +4,13 @@ var takenDown = 0;
 var passedAround = 0;
 var onGround = 0;
 
+// Add the host to the party
+var drinkers = 1;
+var party = [{"id":1,
+"guest":"Host",
+"drinks":0
+}];
+
 var title = d3.select('title')
 var countHeader = d3.select('#countHeader')
 var navbarBrand = d3.select('#navbar-brand')
@@ -95,12 +102,45 @@ Chart.scaleService.updateScaleDefaults('linear', {
 
 var colorNames = Object.keys(window.chartColors);
 
+function guestsDrink(){
+  // Share one bottle among all guests
+  var drinkSize = 1/party.length;
+  party.forEach(currGuest => {
+    currGuest.drinks += drinkSize;
+  })
+}
+
+function writeTable(){
+  // Add row to table with new guest name and 0 drinks
+  $("#party-table").empty();
+  var tbody = d3.select("tbody");
+
+  party.forEach(currGuest => {
+    var row = tbody.append("tr");
+
+    var cell = row.append("th");
+    cell.attr("scope","row")
+    cell.text(currGuest.id);
+
+    var cell = row.append("td");
+    cell.text(currGuest.guest);
+
+    var cell = row.append("td");
+    cell.text(+currGuest.drinks.toFixed(2));
+  });
+}
+
+
+
+// Event listener for "Take one down"
 document.getElementById('takeDown').addEventListener('click', function() {
   if (onTheWall > 0) {
+    // Relocate bottle
     onTheWall--;
     takenDown++;
     onGround++;
 
+    // Add new values to line chart
     config.data.datasets[0].data.push({
       x: takenDown,
       y: onTheWall
@@ -109,29 +149,53 @@ document.getElementById('takeDown').addEventListener('click', function() {
       x: takenDown,
       y: passedAround
     });
+    chart.update();
 
+    // Update page title and header with beer count
     title.text(`${onTheWall} Bottles of Beer!`)
     navbarBrand.text(`${onTheWall} Bottles on the Wall!`)
 
+    // Enable beer to be passed.
     document.getElementById('passAround').disabled = false;
-
-    chart.update();
-    if (onTheWall == 0){
-      document.getElementById('takeDown').disabled = false;
-    }
   }
 });
 
+// Event listerner for "Pass it around"
 document.getElementById('passAround').addEventListener('click', function() {
   if (onGround > 0) {
+    // Relocate bottle
     passedAround++;
     onGround--;
 
+    // Move value on linechart
     config.data.datasets[1].data[takenDown].y++;
-
     chart.update();
+
+    // Add beer to guest table
+    guestsDrink();
+    writeTable();
+
+    // If none on the ground, disable passing until one is taken down.
     if (onGround == 0){
       document.getElementById('passAround').disabled = true;
     }
   };
+});
+
+// Event listener for adding new guest
+document.getElementById('newGuest').addEventListener('click', function() {
+  // Check if input is blank. If not, add guest
+  var guest = d3.select("#guest").property("value");
+  if (guest != ""){
+    drinkers++;
+    currGuest = {"id":drinkers,
+      "guest":guest,
+      "drinks":0
+    };
+    party.push(currGuest);
+
+    writeTable();
+
+    document.getElementById('guest').value = "";
+  }
 });
